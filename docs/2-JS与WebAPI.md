@@ -50,7 +50,7 @@
     - 例如:
 
         ```javascript
-        var obj = {
+        const obj = {
           a: {
             b: {
               c: 1
