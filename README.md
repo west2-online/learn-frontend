@@ -14,8 +14,8 @@
 | [备忘录](docs/3-备忘录.md)   | Vue框架及其相关生态的使用，项目结构设计 | 30天（1个月）   |
 | [大作业](docs/4-大作品.md)   | 暂时未定 | 60天（2个月）   |
 | [基础组件](docs/5-基础组件.md)   | 组件化，工程化，ES6的熟练运用                           | 45天（1个半月） |
-| [TypeScript](docs/6-TypeScript.md)   |   TypeScript的使用，Vue中引入TypeScript   | 30天（1个半月） |
-| [聊天室](docs/7-聊天室.md)   | WebSocket通信，nodejs初入门       | 30天（1个半月） |
+| [TypeScript](docs/6-TypeScript.md)   |   TypeScript的使用，Vue中引入TypeScript   | 15天（半月） |
+| [聊天室](docs/7-聊天室.md)   | WebSocket通信，nodejs初入门       | 30天（1个月） |
 | [合作或SSR](docs/8-合作或SSR.md) | 暂时未定 | 60天（2个月）   |
 
 预期时长以一名零基础全日制大学生为参考，如果是全身心投入学习语言，或者已经对其他语言有一定的了解，每一阶段所需的时间会比预期时长来的短
