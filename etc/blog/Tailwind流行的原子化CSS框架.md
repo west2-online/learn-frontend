@@ -2,6 +2,8 @@
 
 本文转载自 https://juejin.cn/post/7231539903649398843 ，有删改
 
+- Tailwindcss官网 https://www.tailwindcss.cn/
+
 **原子化css不适用于多人合作，国内大部分公司项目也不会考虑使用Tailwind，Tailwind更多适用与简单的个人项目，使用前请仔细考虑**
 
 **Tailwind会明显的减慢Vite的速率，实际使用时可以考虑Unocss**
