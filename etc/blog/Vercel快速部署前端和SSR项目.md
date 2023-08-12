@@ -1,0 +1,210 @@
+# 快速上手 vercel，手把手教你白嫖部署上线你的个人项目
+
+本文转载自 https://juejin.cn/post/7251512482152349753 ，有删改
+
+**使用vercel生成的项目网址会被墙，请使用魔法或者绑定自己的域名**
+
+# 壹 ❀ 关于 vercel
+
+Vercel 是一个云服务平台，支持静态网站和动态网站的应用部署、预览和上线。如果你用过 GitHub Pages ，那么心里可能不会太陌生，但你也能通过 vercel 集成 GitHub 后后，在 GitHub 项目进行代码推送，PR合并自动部署的目的，且你不需要考虑服务器问题。
+
+因为 vercel 自身内置 CI CD，只要你将项目与 vercel 关联，你就能通过命令快速部署，这没什么难度，接下来给大家讲解 vercel 优势、部署方式、能力边界以及接下来工作可能要思考的点。
+
+# 贰 ❀ Vercel 优势（能带来什么）
+
+使用 vercel 能为我们带来什么？关于 vercel 能力优势，这里我根据我个人使用体验简单罗列：
+
+- 个人版永久免费，每个月 100G 带宽（别人访问你的项目所耗费的流量），个人项目部署完全够用，需要注意的是团队模式收费，所以要协作你只能付费。
+- 内置 CI CD，你可以理解成一个黑盒，项目丢进去，只需要将项目导入 vercel ，一句命令自动部署。
+- 因为内置构建流程，支持代码推送、PR 自动触发构建，不同分支唯一地址，方便测试。
+- 支持本地、测试、生产三种环境部署，仅仅是命令区别，上手成本极低。
+- 丰富的集成能力，项目部署自动监控，端到端自动化测试等等，当然这些并并属于 vercel 自身的能力，但它可以为你提供集成入口，让这些成为你自动部署中自动进行的一步，比如构建生产后自动完成性能指标输出，自动化测试，以及后续项目监控等等。
+
+# 叁 ❀ 部署方式
+
+- vercel官网 https://www.vercel.com
+
+将项目导入 vercel 后，vercel 会自动检测并为项目所用的框架设置最佳构建配置和部署配置，这也是为什么导入项目就能直接构建的一部分原因，我们先说两种导入项目到 vercel 平台的两种方式。
+
+### 3.1 GitHub部署
+
+在 dashboard 点击 `Add New` 按钮选择 `Project`，这时会跳转到导入项目界面，选择你的 GitHub 账号（如果之前没绑定这里也可以绑定 GitHub 账号），然后点击导入按钮，这是会跳转到项目设置。
+
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4bb678040a6642109aef329d012d388a~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ddc958d3e28b41c8bb3d7e593a98d64e~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ed61e5274e8e460998d2d905579bd9d8~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+比如这里我提前把 vercel 官方的 next 模版项目克隆到了我的 GitHub 账户，并在这里尝试导入这个 next 项目，可以看到 vercel 自己识别到项目所用框架是 nextjs ，以及构建命令会自动识别成 `npm run build`，当然如果项目框架识别不准，你自己的项目可能后续使用了 `pnpm`等其它命令，所以这些配置在此时都可以根据实际情况修改，这里我们直接默认。
+
+直接点击下面的 Deploy 进行部署，然后坐等构建就能看到 vercel 为我们部署后独一无二的预览地址了。
+
+由于实际开发，我们本地肯定也会克隆 GitHub 项目，那么在后续只要我们修改项目代码，push 到仓库，GitHub 感知到代码变动，vercel 就会自动再次部署。
+
+你可能会想，我 GitHub 项目拷贝下来会有主分支，以及我的开发分支，vercel 虽然能自动部署，它怎么知道我要部署到什么环境，事实上 vercel 也已经做了提前预设，假设你的代码变动发生在 `main` 或者 `master` 分支，那么 vercel 就会自动构建部署生产环境，除此之外的分支，vercel 都会更新预览（测试）环境。
+
+关于 GitHub 主分支，你可以在 GitHub 进行设置，这个 vercel 无需感知，反正是主分支变动它会对应帮你部署就完事了。
+
+另外，让远程仓库代码变动有两种方式，第一种是直接本地推送代码，第二种就是提 PR 后合并到目标分支触发变动。
+
+假设你集成了 GitHub ，在你 PR 合并前，你甚至能在 GitHub PR 中直接看到你需要提 PR 的分支部署后的预览地址，直接看 vercel 帮你部署后的效果。
+
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a14c794717c04ffbba1b91a231cc2da9~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+上图就是我基于主分支 `main` 切出了一个开发分支 `main-echo`，然后给 `main` 分支提了一个 PR，在 PR 合并页面你能看到 GitHub 这里直接给出了 `main-echo` 分支的部署预览地址，之后我们合并 PR ，由于 `main` 分支代码发生改变，vercel 会自动帮你构建部署 `main` 分支，好处就是能保证每次部署前，你能直接看每个分支效果是否符合你的预期。
+
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eeeee45e12d340d2a4ad646adeed1da7~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+可以看到 PR 合并后，vercel 这边已经帮我更新了生产环境，且提交记录与 GitHub 保持一致。
+
+### 3.2 本地部署
+
+有时候，我们的项目可能并不在 GitHub 上，我如果需要上传 GitHub 还要做初始化一系列操作，比较麻烦，那么我们就可以通过本地初始化 vercel 让项目直接关联到 vercel，之后直接通过构建命令来达到不同环境的部署效果。
+
+我们需要在本地安装 vercel，建议是全局安装：
+
+```
+复制代码npm install -g vercel
+```
+
+之后执行如下命令保证你本地登录了 vercel 账号：
+
+```
+复制代码vercel login
+```
+
+之后进入你的项目根路径，执行 vercel 即可：
+
+```
+复制代码vercel
+```
+
+之后你需要进行一些基础配置，比如你需要选择要部署的项目目录、构建命令和输出目录，如果直接回车就是执行默认配置，这些配置走完后项目就会进行部署，你可以直接等待终端部署完成后的预览地址，你可以回到 vercel 后台找到你刚才关联部署的项目，一样可以找到预览地址。
+
+我们需要区分 GitHub 部署与本地部署的一些区别，集成 GitHub 后，vercel 会根据 GitHub 代码仓库分支变化，对应的自动部署匹配环境：
+
+- 生产环境：假设 GitHub 主分支直接发生代码变动，比如 push，或者有 PR 合并到主分支都会导致生产环境重新部署，而主分支默认是 main 或者 master 分支，你可以在 GitHub 自定义你的主分支。
+- 预览环境：除了主分支之外的其他分支如果发生代码变动，vercel 会自动构建属于这个分支的独一无二的预览地址。
+
+我们也可以直接通过命令来进行本地部署，但如果我们集成 GitHub，还是建议走 GitHub 工作流，这样构建会更加规范。
+
+因此构建命令更适用于本地部署，因为我们的项目并未集成 GitHub ，vercel 无处感知代码变化，这就需要开发来手动通过命令来达到不同环境部署更新的目的，接下来我们介绍不同环境的区别以及对应的命令。
+
+# 肆 ❀ 构建命令与环境介绍
+
+vercel 其实也分为开发环境，预览环境（测试环境）以及生产环境三个概念，在 vercel 团队版，你甚至能在预览环境直接进行评论（而且评论也能集成到 slack，挺符合目前我们的生态），比如 UI 觉得某些页面还原度不够他就能在预览环境进行评论，所以不同环境确实有本质上的区别以及作用。
+
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7de235859844d9cb82cd35c5acef6b4~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+我们可以通过如下三个命令分别构建不同环境，因为比较简单，就一笔带过：
+
+1. `vercel dev`： 这个命令用于启动本地的开发环境。它会模拟 Vercel 的云环境，让你可以在本地进行开发和测试。使用这个命令，你可以实时看到你的更改效果，而不需要将它们部署到预览或生产环境。
+
+    ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ab075288d45c4368949cf89f500cda92~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+2. `vercel`： 这个命令用于将你的项目部署到 Vercel 的预览环境。预览环境是一个为了测试和分享而设立的临时环境，你可以在里面看到你的更改会在生产环境中出现的样子。这个命令非常适用于团队合作的场景，你可以用它来分享你的更改，获取反馈，然后在推向生产环境之前进行进一步的调整。
+
+3. `vercel --prod`： 这个命令会将你的应用部署到生产环境。生产环境通常代表了你的应用的正式发布版本，所部署的内容会对公众可见。这个命令就是将你的项目部署上线的最终步骤。
+
+# 伍 ❀ 踩坑与 vercel 平台设置
+
+单论 vercel 平台你会发现非常简单，导入项目，通过代码推送或者几句命令基本上能满足你的大部分需求，但事实上，我觉得困难的其实是将你个人的项目导入 vercel 并部署成功。
+
+假设你使用 vercel 官方各框架的模版，因为这些模版比较纯粹简单，你确实不需要任何改动就能成功，但假设你是一个开发已久包含各种定制的项目，可能就没那么顺利，接下来介绍下我将个人项目部署到 vercel 所遇到的一些问题。
+
+- vercel 部署对于文件大小写引用更为严格，比如我发现自己项目一些文件引用文件是小写，但引用某个字母大写，Jenkins部署这些非常正常，也不会报错，但vercel 会认为这是错误，并直接报错，如下图。
+
+    ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8bca3552d4ad4bb5884e01ef8fe182e2~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+    这里其实就是因为实际的文件命为 `checkbox` 而非 `Checkbox`，所以如果遇到这样的错误，直接找到构建错误信息的文件去看看资源是否存在，或者资源命是否大小写匹配。
+
+- vercel 在未来只支持 node 18 版本，且 vercel 平台默认就是 18 版本，一般如果你遇到了如下错误，那就是说明 node 版本过高，比如我们现在的项目使用的版本就是 16 ，然后走 vercel 部署 使用18 版本就会报错。
+
+    ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/e5672444d4074a9cad4c9cd8137145f8~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+    我之前一直以为需要降低我本地的 node 版本，后来一想不对啊，vercel 部署走的是它的服务，跟我本地环境有啥关系，果然在项目设置中我们能找到 node 版本设置，将其修改为与项目 node 版本匹配的版本之后再构建就不会有上图的错误。
+
+    ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ed7657b59eb0420286110643cd25edb0~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+    但即便改成 16 避免了这个报错，vercel 还是会给出 node 版本的告警，它会告诉你在今年8月不再支持 node 14 以及 16 版本的部署，以及在官方博客也提到了这个问题。
+
+    ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fc5c28e42eb04f27ab1d2c771a912678~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+    ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d7c94a3973c2429cbc4dcb4cf1bccabb~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+- 你可能需要根据自身项目构建配置，对应的调整 vercel 平台的项目设置，比如在这里可以看到构建相关设置，在之前我们提到 vercel 会根据你的项目自动识别框架并初始化默认配置，比如我们项目的在上传后 vercel 成功识别成了 umi，且默认输出目录是 `dist`，但事实上我们的输出目录并不是这个名字，所以需要在这里修改。
+
+    ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5a8c0f4262f544fd856ff6434c073e00~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+- vercel 平台环境并不支持 zip，我在很长一段时间构建项目时 vercel 一直给我报找不到 zip 命令的错误，但我并未发现我的包依赖中有这个包名，同时保险起见，我甚至专门在项目中安装了 zip 这个包，但结果依旧不行，之后我尝试询问 GPT，也确实在 build 命令中发现了一小段利用 zip 来压缩打包产物的命令，在删除这段行为后构建正常。
+
+    ![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/288b5a437de64c96bba7d9bf05df0149~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+    另外，如果大家看到类似上面的报错，一定不要去管两个错误，比如 `exited with 1`这种，这类错误都是属于构建失败的通用错误，就像接口 500 给了你一个通用 code 码一样，真正的错误一定就是第一句，你只用解决这个错误就完事了。
+
+# 陆 ❀ 能力边界（你不一定用，但它有）
+
+以上是 vercel 平台部署以及一些使用上需要注意的点，考虑到未来项目发展，这里顺带普及下我注意到的能力边界。
+
+### 6.1 支持域名自定义
+
+理论 vercel 在项目部署后会给我们生产独一无二的地址，但都带有 vercel 后缀，如果是生产环境对外，vercel 痕迹就太明显了，所以如果大家有购买域名，也可以在项目设置中自定义域名。
+
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/008c1603004544379d40d0d389b13440~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+### 6.2 支持部署 URL 私有化与预览地址自定义（要钱）
+
+当我们部署预览环境或生产环境时，Vercel 将自动生成唯一的 URL 便于我们访问；默认情况下，该 URL 可以公开访问，但我们可以使用部署保护将其配置为私有地址，比如我们并不希望外界访问我们的测试地址。
+
+关于 URL 这里先介绍几种地址结构：
+
+生成环境生成的地址一般是项目名拼接 scope，结构为：
+
+```xml
+xml
+复制代码<project-name>-<scope-slug>.vercel.app;
+```
+
+除此之外还有项目名拼项目唯一哈希的地址：
+
+```xml
+xml
+复制代码<project-name>-<unique-hash>-<scope-slug>.vercel.app
+```
+
+当然有时候我们需要区分项目，所以 vercel 也提供了拼接了项目分支的地址：
+
+```xml
+xml
+复制代码<project-name>-git-<branch-name>-<scope-slug>.vercel.app
+```
+
+除了分支，假设我们是团队版，vercel 还会提供项目名拼接用户名的地址，便于区分这个地址是谁构建，结构为：
+
+```xml
+xml
+复制代码<project-name>-<author-name>-<scope-slug>.vercel.app;
+```
+
+我们在项目部署面板可以看到不同类型的地址类型，当然这些地址最终呈现的效果完全一致（这里我是个人版）
+
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/0194165c3b654af6b5f85e2c66a4c508~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+聊聊部署保护，vercel 支持单个部署添加密码保护或者直接将部署设置为私有化部署，前者需要输入预设的密码才能访问地址，后者可以直接大范围让所有部署地址变成私有化，你可能需要密码或者 vercel 身份效验才能访问，比如企业版中我们可能不希望团队外任何人访问测试地址。
+
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d6f4e579a76a4b69a0634491735f9cb8~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a6376c5c24234408a095261751de749b~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp)
+
+但需要注意的是这项功能需要企业版或者 PRO 版本，简单来说无法白嫖。
+
+### 6.3 支持 next 项目与 Monorepos 仓库部署
+
+比如未来我们项目仓库都需要迁移 Monorepos，可能一个项目下需要分别部署单个子项目，目前 vercel 能很好支持 Monorepos 仓库部署，官方也提供了 Monorepos 仓库的例子，因为比较简单大家可以自行尝试。除此之外 vercel 对于 next 项目支持也非常友好，的以及现有项目框架还要迁移
+
+支持memorepo
+
+### 6.4 丰富的集成能力
+
+除了前面提到的 GitHub 在集成上表现，vercel 其实提供了配套的对于项目部署中性能检测、项目安全、项目监控、端到端测试等一系列能力，当然现在我们的做法是分散了不同平台（比如 sentry），而非自动化部署一条线中的一部分。
