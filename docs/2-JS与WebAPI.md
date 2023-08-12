@@ -10,25 +10,28 @@
 
 1. 柯南的手表
 
-  - 要求看demo1.html
+  - 要求看[demo1.html](../img/2-JS与WebAPI.md/demo1.html)
   - 使用Date对象
-  - 效果参考demo1.mp4
+  - 效果参考![demo1.gif](../img/2-JS与WebAPI.md/效果1.gif)
+
+
 
 2. 抓出章鱼哥
 
-  - 要求看demo2.html
+  - 要求看[demo2.html](../img/2-JS与WebAPI.md/demo2.html)
   - 掌握数组排序(sort)
-  - 效果看demo2.mp4
+  - 效果看![demo2.gif](../img/2-JS与WebAPI.md/效果2.gif)
 
 3. 蟹老板的秘方
 
-  - 详细要求看demo3.html
+  - 详细要求看[demo3.html](../img/2-JS与WebAPI.md/demo3.html)
   - 掌握循环和判断
+  - 效果参考![demo3.gif](../img/2-JS与WebAPI.md/效果3.gif)
 
 4. 切换框
 
   - 页面自己设计，配色不要华丽花哨，让页面干净美观，内容无要求，切换效果实现即可
-  - 参考效果看demo4.mp4
+  - 参考效果看![demo4.gif](../img/2-JS与WebAPI.md/效果4.gif)
 
 ## Bouns
 

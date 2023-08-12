@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>海绵宝宝抓章鱼</title>
+    </head>
+    <style>
+    *{
+        font-size: 30px;
+    }
+    </style>
+<body>
+    <p>海绵宝宝很爱抓章鱼,可爱的学长（出题人）把章鱼哥也混在里面了,尽管他也是章鱼，但是不能抓到他</p> 
+    <p>现在我们要将章鱼哥先从这些章鱼中脱离出来(即把这个节点从ul里面去掉),之后再抓章鱼</p>
+    <p>海绵宝宝抓章鱼喜欢先从重量小的开始抓，请帮助可爱的海绵宝宝和可爱的学长</p>
+   
+    <ul id="octopus">
+        <li><span class="name">章鱼一号</span><span class="weight">30.4kg</span></li>
+        <li><span class="name">章鱼二号</span><span class="weight">24.2kg</span></li>
+        <li><span class="name">章鱼三号</span><span class="weight">250.3kg</span></li>
+        <li><span class="name">章鱼四号</span><span class="weight">300.9kg</span></li>
+        <li><span class="name">章鱼五号</span><span class="weight">120.0kg</span></li>
+        <li><span class="name">章鱼六号</span><span class="weight">27.5kg</span></li>
+        <li><span class="name">章鱼七号</span><span class="weight">35.4kg</span></li>
+        <li><span class="name">章鱼哥</span><span class="weight">25.5kg</span></li>
+    </ul>
+
+    <ul id="octopus-sort">
+    <!--
+        <li>第一只章鱼：章鱼六号：27.5kg</li>
+     -->
+    </ul>
+    <button id="sort-btn">排序</button>
+
+    <!--
+        不可以修改上述代码内容，只能在script标签内填写代码
+    -->
+    
+    <script>
+	    
+          //把章鱼哥节点从ul列表中删除
+          function remove() {
+			//以下为你写的代码
+           
+        }
+		
+        /*
+         *  读取id为octopus的列表，获取其中章鱼名字和体重
+         *  返回一个JSON数组，格式见函数中示例
+		 */
+        function getWeight () {
+     
+            //  row={
+            //      "name":null,
+            //      "weight":null
+            //    }
+            //  }
+    
+        
+        }
+
+        //按章鱼重量，对data进行从小到大的排序,返回一个排序后的数组
+        function sortedOctopus (data) {
+            
+          return data;
+        }    
+        //将排好序的章鱼朋友输出显示到id为octopus-sort的列表中,格式见ul中注释
+        function render (data) {
+          
+        }
+		
+        //按钮点击函数
+        function handleButton() {
+           
+        }
+        
+       
+        // 给sort-btn 绑定一个点击事件，点击时触发handleButton函数
+        // 触发后在浏览器上可以看到结果        
+ 
+    </script>
+</body>
+</html>
