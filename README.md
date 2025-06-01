@@ -14,8 +14,9 @@
 | [JavaScript 入门与 DOM 基础操作](./steps/2.md) | JavaScript 的基本语法、DOM 的基本操作                      | 3 周     |
 | [JavaScript 和 CSS 进阶](./steps/3.md)         | 响应式布局、CSS 选择器进阶、JavaScript 异步入门、fetch API | 3 周     |
 | [前端框架入门 & 寒假合作轮](./steps/4.md)      | React 或 Vue 框架入门                                      | 5 周     |
-
-未完待续...
+| [TypeScript 入门](./steps/5.md)                | TypeScript 的基本语法与类型系统                            | 3 周     |
+| [Node.js 入门](./steps/6.md)                   | Node.js 的基本语法与常用模块、npm 包管理、Koa              | 3 周     |
+| 前端工程化项目实战 & 暑假合作轮                | 前端工程化项目实战（根据每年需求确定内容）                 | 5~6 周   |
 
 ## 作业设计
 
