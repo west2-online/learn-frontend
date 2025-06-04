@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文件管理系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#3B82F6",
+                        secondary: "#10B981",
+                        danger: "#EF4444",
+                        dark: "#1E293B",
+                        light: "#F8FAFC",
+                    },
+                    fontFamily: {
+                        inter: ["Inter", "system-ui", "sans-serif"],
+                    },
+                },
+            },
+        };
+    </script>
+    <style type="text/tailwindcss">
+        @layer utilities { .content-auto { content-visibility: auto; } .shadow-card { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); } .transition-custom { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); } }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-inter min-h-screen flex flex-col">
+    <!-- 导航栏 -->
+    <nav class="bg-primary text-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-xl font-bold tracking-tight">
+              <i class="fa fa-cloud-upload mr-2"></i>文件管理系统
+            </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div id="loginStatus" class="hidden">
+                        <span id="username" class="mr-2"></span>
+                        <button id="logoutBtn" class="px-3 py-1 rounded-md hover:bg-primary-700 transition-custom">
+                <i class="fa fa-sign-out mr-1"></i>登出
+              </button>
+                    </div>
+                    <button id="loginBtn" class="px-3 py-1 rounded-md hover:bg-primary-700 transition-custom">
+              <i class="fa fa-user mr-1"></i>登录
+            </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区 -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- 左侧：上传区域 -->
+            <div class="lg:col-span-1">
+                <div class="bg-white rounded-xl shadow-card p-6 transition-custom hover:shadow-lg">
+                    <h2 class="text-xl font-bold text-dark mb-4 flex items-center">
+                        <i class="fa fa-upload text-primary mr-2"></i>文件上传
+                    </h2>
+
+                    <div id="loginRequired" class="hidden mb-4">
+                        <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4">
+                            <p>
+                                <i class="fa fa-exclamation-triangle mr-2"></i
+                  >请先登录才能上传文件
+                </p>
+              </div>
+            </div>
+
+            <form id="uploadForm" class="space-y-4">
+              <div class="mb-4">
+                <label
+                  for="file"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >选择文件</label
+                >
+                <div
+                  class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg hover:border-primary transition-custom"
+                >
+                  <div class="space-y-1 text-center">
+                    <i class="fa fa-cloud-upload text-3xl text-gray-400"></i>
+                                <div class="flex text-sm text-gray-600">
+                                    <label for="file" class="relative cursor-pointer bg-white rounded-md font-medium text-primary hover:text-primary-700 focus-within:outline-none">
+                        <span>上传文件</span>
+                        <input
+                          id="file"
+                          name="file"
+                          type="file"
+                          class="sr-only"
+                        />
+                      </label>
+                                    <p class="pl-1">或拖放文件</p>
+                                </div>
+                                <p class="text-xs text-gray-500">
+                                    PNG, JPG, GIF, PDF 或 DOCX (最大 200MB)
+                                </p>
+                        </div>
+                    </div>
+                    <div id="fileInfo" class="hidden mt-2 p-2 bg-gray-100 rounded-md">
+                        <p id="fileName" class="text-sm font-medium"></p>
+                        <p id="fileSize" class="text-xs text-gray-500"></p>
+                    </div>
+                </div>
+
+                <button type="submit" id="uploadBtn" class="w-full bg-primary hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-custom flex items-center justify-center">
+                <i class="fa fa-upload mr-2"></i>上传文件
+              </button>
+                </form>
+
+                <div id="uploadResult" class="mt-4 hidden">
+                    <div id="successMessage" class="hidden mb-4">
+                        <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4">
+                            <p>
+                                <i class="fa fa-check-circle mr-2"></i
+                    ><span id="uploadSuccessMsg"></span>
+                  </p>
+                  <p class="mt-2">
+                    <a
+                      id="fileUrl"
+                      href="#"
+                      target="_blank"
+                      class="text-primary hover:underline"
+                    >
+                      <i class="fa fa-link mr-1"></i>查看文件
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div id="errorMessage" class="hidden mb-4">
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+                            <p>
+                                <i class="fa fa-exclamation-circle mr-2"></i
+                    ><span id="uploadErrorMsg"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 右侧：文件列表 -->
+        <div class="lg:col-span-2">
+          <div
+            class="bg-white rounded-xl shadow-card p-6 transition-custom hover:shadow-lg"
+          >
+            <div class="flex justify-between items-center mb-4">
+              <h2 class="text-xl font-bold text-dark flex items-center">
+                <i class="fa fa-files-o text-primary mr-2"></i>文件列表
+                                </h2>
+                                <div class="relative">
+                                    <input type="text" id="searchInput" placeholder="搜索文件..." class="pl-9 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-custom" />
+                                    <i class="fa fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                </div>
+                        </div>
+
+                        <div id="fileListEmpty" class="py-12 text-center">
+                            <i class="fa fa-folder-open-o text-5xl text-gray-300 mb-4"></i>
+                            <p class="text-gray-500">暂无文件</p>
+                        </div>
+
+                        <div id="fileList" class="hidden">
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-gray-200">
+                                    <thead>
+                                        <tr>
+                                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                文件名
+                                            </th>
+                                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                大小
+                                            </th>
+                                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                上传时间
+                                            </th>
+                                            <th class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                操作
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="fileTableBody" class="bg-white divide-y divide-gray-200">
+                                        <!-- 文件列表将通过JavaScript动态生成 -->
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="mt-4 flex justify-between items-center">
+                                <div class="text-sm text-gray-500">
+                                    共 <span id="fileCount">0</span> 个文件
+                                </div>
+                                <button id="refreshBtn" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-custom flex items-center">
+                  <i class="fa fa-refresh mr-1"></i>刷新
+                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="bg-dark text-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-sm">&copy; 2025 文件管理系统. By Fzu_zwl</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-300 hover:text-white transition-custom">
+                        <i class="fa fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-custom">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-300 hover:text-white transition-custom">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 登录模态框 -->
+    <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 transform transition-all">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-bold text-gray-900">用户登录</h3>
+                <button id="closeLoginModal" class="text-gray-400 hover:text-gray-500">
+            <i class="fa fa-times"></i>
+          </button>
+            </div>
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label for="loginUsername" class="block text-sm font-medium text-gray-700">用户名</label
+            >
+            <input
+              type="text"
+              id="loginUsername"
+              name="username"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/30 focus:ring-opacity-50"
+            />
+          </div>
+          <div>
+            <label
+              for="loginPassword"
+              class="block text-sm font-medium text-gray-700"
+              >密码</label
+            >
+            <input
+              type="password"
+              id="loginPassword"
+              name="password"
+              class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring focus:ring-primary/30 focus:ring-opacity-50"
+            />
+          </div>
+          <div class="flex items-center justify-end">
+            <button
+              type="submit"
+              class="bg-primary hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-custom"
+            >
+              登录
+            </button>
+          </div>
+        </form>
+        <div id="loginError" class="mt-4 hidden">
+          <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4">
+            <p>
+              <i class="fa fa-exclamation-circle mr-2"></i
+              ><span id="loginErrorMessage"></span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 删除确认模态框 -->
+    <div
+      id="deleteModal"
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 hidden"
+    >
+      <div
+        class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 transform transition-all"
+      >
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-gray-900">删除文件</h3>
+          <button
+            id="closeDeleteModal"
+            class="text-gray-400 hover:text-gray-500"
+          >
+            <i class="fa fa-times"></i>
+          </button>
+        </div>
+        <div class="mb-4">
+          <p class="text-gray-700">
+            确定要删除文件 "<span id="deleteFileName" class="font-medium"></span
+            >" 吗？
+          </p>
+          <p class="text-sm text-gray-500 mt-2">此操作不可撤销。</p>
+        </div>
+        <div class="flex justify-end space-x-3">
+          <button
+            id="cancelDeleteBtn"
+            class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition-custom"
+          >
+            取消
+          </button>
+          <button
+            id="confirmDeleteBtn"
+            class="px-4 py-2 bg-danger hover:bg-danger-700 text-white rounded-lg transition-custom"
+          >
+            <i class="fa fa-trash mr-1"></i>删除
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // DOM 元素
+        const loginBtn = document.getElementById("loginBtn");
+        const logoutBtn = document.getElementById("logoutBtn");
+        const loginModal = document.getElementById("loginModal");
+        const closeLoginModal = document.getElementById("closeLoginModal");
+        const loginForm = document.getElementById("loginForm");
+        const loginError = document.getElementById("loginError");
+        const loginErrorMessage = document.getElementById("loginErrorMessage");
+        const usernameElement = document.getElementById("username");
+        const loginStatus = document.getElementById("loginStatus");
+        const uploadForm = document.getElementById("uploadForm");
+        const fileInput = document.getElementById("file");
+        const fileInfo = document.getElementById("fileInfo");
+        const fileName = document.getElementById("fileName");
+        const fileSize = document.getElementById("fileSize");
+        const uploadBtn = document.getElementById("uploadBtn");
+        const uploadResult = document.getElementById("uploadResult");
+        const successMessage = document.getElementById("successMessage");
+        const errorMessage = document.getElementById("errorMessage");
+        const uploadSuccessMsg = document.getElementById("uploadSuccessMsg");
+        const uploadErrorMsg = document.getElementById("uploadErrorMsg");
+        const fileUrl = document.getElementById("fileUrl");
+        const fileList = document.getElementById("fileList");
+        const fileListEmpty = document.getElementById("fileListEmpty");
+        const fileTableBody = document.getElementById("fileTableBody");
+        const fileCount = document.getElementById("fileCount");
+        const refreshBtn = document.getElementById("refreshBtn");
+        const searchInput = document.getElementById("searchInput");
+        const deleteModal = document.getElementById("deleteModal");
+        const closeDeleteModal = document.getElementById("closeDeleteModal");
+        const cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+        const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+        const deleteFileName = document.getElementById("deleteFileName");
+        const loginRequired = document.getElementById("loginRequired");
+
+        // 当前选中要删除的文件
+        let selectedFileForDelete = null;
+
+        // 检查登录状态
+        checkLoginStatus();
+
+        // 加载文件列表
+        loadFiles();
+
+        // 事件监听器
+        loginBtn.addEventListener("click", () => {
+          loginModal.classList.remove("hidden");
+        });
+
+        closeLoginModal.addEventListener("click", () => {
+          loginModal.classList.add("hidden");
+          loginError.classList.add("hidden");
+        });
+
+        loginForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const username = document.getElementById("loginUsername").value;
+          const password = document.getElementById("loginPassword").value;
+
+          try {
+            const response = await fetch("/api/login", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              loginModal.classList.add("hidden");
+              loginForm.reset();
+              showNotification("登录成功", "success");
+              checkLoginStatus();
+              loadFiles();
+            } else {
+              loginError.classList.remove("hidden");
+              loginErrorMessage.textContent = data.error || "登录失败";
+            }
+          } catch (error) {
+            loginError.classList.remove("hidden");
+            loginErrorMessage.textContent = "网络错误，请重试";
+          }
+        });
+
+        logoutBtn.addEventListener("click", async () => {
+          try {
+            const response = await fetch("/api/logout", {
+              method: "POST",
+            });
+
+            if (response.ok) {
+              showNotification("已登出", "success");
+              checkLoginStatus();
+              loadFiles();
+            } else {
+              showNotification("登出失败", "error");
+            }
+          } catch (error) {
+            showNotification("网络错误，请重试", "error");
+          }
+        });
+
+        fileInput.addEventListener("change", (e) => {
+          const file = e.target.files[0];
+          if (file) {
+            fileInfo.classList.remove("hidden");
+            fileName.textContent = file.name;
+            fileSize.textContent = formatFileSize(file.size);
+          } else {
+            fileInfo.classList.add("hidden");
+          }
+        });
+
+        uploadForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const file = fileInput.files[0];
+          if (!file) {
+            showNotification("请选择要上传的文件", "error");
+            return;
+          }
+
+          uploadBtn.disabled = true;
+          uploadBtn.innerHTML =
+            '<i class="fa fa-spinner fa-spin mr-2"></i>上传中...';
+          uploadResult.classList.remove("hidden");
+          successMessage.classList.add("hidden");
+          errorMessage.classList.add("hidden");
+
+          try {
+            const formData = new FormData();
+            formData.append("file", file);
+
+            const response = await fetch("/api/upload", {
+              method: "POST",
+              body: formData,
+            });
+
+            const data = await response.json();
+
+            if (response.ok) {
+              successMessage.classList.remove("hidden");
+              uploadSuccessMsg.textContent = `文件 "${data.originalname}" 上传成功`;
+              fileUrl.href = data.url;
+              fileUrl.textContent = `查看文件: ${data.filename}`;
+              uploadForm.reset();
+              fileInfo.classList.add("hidden");
+              loadFiles();
+            } else {
+              errorMessage.classList.remove("hidden");
+              uploadErrorMsg.textContent = data.error || "上传失败";
+            }
+          } catch (error) {
+            errorMessage.classList.remove("hidden");
+            uploadErrorMsg.textContent = "网络错误，请重试";
+          } finally {
+            uploadBtn.disabled = false;
+            uploadBtn.innerHTML = '<i class="fa fa-upload mr-2"></i>上传文件';
+          }
+        });
+
+        refreshBtn.addEventListener("click", () => {
+          loadFiles();
+          showNotification("文件列表已刷新", "success");
+        });
+
+        searchInput.addEventListener("input", filterFiles);
+
+        closeDeleteModal.addEventListener("click", () => {
+          deleteModal.classList.add("hidden");
+        });
+
+        cancelDeleteBtn.addEventListener("click", () => {
+          deleteModal.classList.add("hidden");
+        });
+
+        confirmDeleteBtn.addEventListener("click", async () => {
+          if (!selectedFileForDelete) return;
+
+          deleteModal.classList.add("hidden");
+
+          try {
+            const response = await fetch(
+              `/api/delete/${selectedFileForDelete}`,
+              {
+                method: "DELETE",
+              }
+            );
+
+            if (response.ok) {
+              showNotification("文件删除成功", "success");
+              loadFiles();
+            } else {
+              const data = await response.json();
+              showNotification(data.error || "删除失败", "error");
+            }
+          } catch (error) {
+            showNotification("网络错误，请重试", "error");
+          }
+        });
+
+        // 工具函数
+        function checkLoginStatus() {
+          fetch("/api/login/status")
+            .then((response) => {
+              if (response.ok) {
+                return response.json();
+              }
+              throw new Error("无法获取登录状态");
+            })
+            .then((data) => {
+              if (data.user) {
+                loginStatus.classList.remove("hidden");
+                loginBtn.classList.add("hidden");
+                usernameElement.textContent = data.user.username;
+                loginRequired.classList.add("hidden");
+                uploadForm.classList.remove("hidden");
+              } else {
+                loginStatus.classList.add("hidden");
+                loginBtn.classList.remove("hidden");
+                loginRequired.classList.remove("hidden");
+                uploadForm.classList.add("hidden");
+              }
+            })
+            .catch((error) => {
+              console.error("检查登录状态失败:", error);
+              loginStatus.classList.add("hidden");
+              loginBtn.classList.remove("hidden");
+              loginRequired.classList.remove("hidden");
+              uploadForm.classList.add("hidden");
+            });
+        }
+
+        async function loadFiles() {
+          try {
+            const response = await fetch("/api/files");
+            const files = await response.json();
+
+            fileTableBody.innerHTML = "";
+
+            if (files.length > 0) {
+              fileList.classList.remove("hidden");
+              fileListEmpty.classList.add("hidden");
+              fileCount.textContent = files.length;
+
+              files.forEach((file) => {
+                const row = document.createElement("tr");
+                row.className = "hover:bg-gray-50 transition-custom";
+
+                // 确定文件图标
+                let fileIcon = "fa-file-o";
+                if (file.name.toLowerCase().endsWith(".pdf"))
+                  fileIcon = "fa-file-pdf-o text-red-500";
+                else if (
+                  file.name.toLowerCase().endsWith(".jpg") ||
+                  file.name.toLowerCase().endsWith(".jpeg") ||
+                  file.name.toLowerCase().endsWith(".png") ||
+                  file.name.toLowerCase().endsWith(".gif")
+                )
+                  fileIcon = "fa-file-image-o text-blue-500";
+                else if (
+                  file.name.toLowerCase().endsWith(".doc") ||
+                  file.name.toLowerCase().endsWith(".docx")
+                )
+                  fileIcon = "fa-file-word-o text-blue-600";
+                else if (
+                  file.name.toLowerCase().endsWith(".xls") ||
+                  file.name.toLowerCase().endsWith(".xlsx")
+                )
+                  fileIcon = "fa-file-excel-o text-green-600";
+                else if (
+                  file.name.toLowerCase().endsWith(".ppt") ||
+                  file.name.toLowerCase().endsWith(".pptx")
+                )
+                  fileIcon = "fa-file-powerpoint-o text-yellow-500";
+                else if (
+                  file.name.toLowerCase().endsWith(".mp3") ||
+                  file.name.toLowerCase().endsWith(".wav") ||
+                  file.name.toLowerCase().endsWith(".ogg")
+                )
+                  fileIcon = "fa-file-audio-o text-orange-500";
+                else if (
+                  file.name.toLowerCase().endsWith(".mp4") ||
+                  file.name.toLowerCase().endsWith(".mov") ||
+                  file.name.toLowerCase().endsWith(".avi")
+                )
+                  fileIcon = "fa-file-video-o text-purple-500";
+
+                row.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-10 w-10 flex items-center justify-center bg-gray-100 rounded">
+                      <i class="fa ${fileIcon}"></i>
+                    </div>
+                    <div class="ml-4">
+                      <div class="text-sm font-medium text-gray-900">
+                        <a href="${
+                          file.url
+                        }" target="_blank" class="hover:text-primary transition-custom">${
+                  file.name
+                }</a>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  ${formatFileSize(file.size)}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  ${formatDateTime(file.mtime)}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                  <button class="delete-btn text-danger hover:text-danger-700 transition-custom" data-filename="${
+                    file.filename
+                  }">
+                    <i class="fa fa-trash mr-1"></i>删除
+                  </button>
+                </td>
+              `;
+
+                fileTableBody.appendChild(row);
+              });
+
+              // 添加删除按钮事件
+              document.querySelectorAll(".delete-btn").forEach((btn) => {
+                btn.addEventListener("click", (e) => {
+                  const filename =
+                    e.currentTarget.getAttribute("data-filename");
+                  selectedFileForDelete = filename;
+                  deleteFileName.textContent = filename;
+                  deleteModal.classList.remove("hidden");
+                });
+              });
+            } else {
+              fileList.classList.add("hidden");
+              fileListEmpty.classList.remove("hidden");
+            }
+          } catch (error) {
+            console.error("获取文件列表失败:", error);
+            showNotification("无法加载文件列表", "error");
+          }
+        }
+
+        function filterFiles() {
+          const searchTerm = searchInput.value.toLowerCase();
+          const rows = fileTableBody.querySelectorAll("tr");
+
+          let visibleCount = 0;
+
+          rows.forEach((row) => {
+            const filename = row
+              .querySelector("td:first-child div:last-child div a")
+              .textContent.toLowerCase();
+            if (filename.includes(searchTerm)) {
+              row.classList.remove("hidden");
+              visibleCount++;
+            } else {
+              row.classList.add("hidden");
+            }
+          });
+
+          fileCount.textContent = visibleCount;
+
+          if (visibleCount === 0) {
+            fileList.classList.add("hidden");
+            fileListEmpty.classList.remove("hidden");
+          } else {
+            fileList.classList.remove("hidden");
+            fileListEmpty.classList.add("hidden");
+          }
+        }
+
+        function formatFileSize(bytes) {
+          if (bytes === 0) return "0 Bytes";
+
+          const k = 1024;
+          const sizes = ["Bytes", "KB", "MB", "GB", "TB"];
+          const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+          return (
+            parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i]
+          );
+        }
+
+        function formatDateTime(dateTime) {
+          const date = new Date(dateTime);
+          const year = date.getFullYear();
+          const month = String(date.getMonth() + 1).padStart(2, "0");
+          const day = String(date.getDate()).padStart(2, "0");
+          const hours = String(date.getHours()).padStart(2, "0");
+          const minutes = String(date.getMinutes()).padStart(2, "0");
+
+          return `${year}-${month}-${day} ${hours}:${minutes}`;
+        }
+
+        function showNotification(message, type = "info") {
+          // 这里可以实现一个通知组件
+          console.log(`${type.toUpperCase()}: ${message}`);
+
+          // 创建一个临时通知元素
+          const notification = document.createElement("div");
+          notification.className = `fixed bottom-4 right-4 px-4 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 transform translate-y-10 opacity-0`;
+
+          if (type === "success") {
+            notification.classList.add("bg-green-500", "text-white");
+            notification.innerHTML = `<i class="fa fa-check-circle mr-2"></i>${message}`;
+          } else if (type === "error") {
+            notification.classList.add("bg-red-500", "text-white");
+            notification.innerHTML = `<i class="fa fa-exclamation-circle mr-2"></i>${message}`;
+          } else {
+            notification.classList.add("bg-blue-500", "text-white");
+            notification.innerHTML = `<i class="fa fa-info-circle mr-2"></i>${message}`;
+          }
+
+          document.body.appendChild(notification);
+
+          // 显示通知
+          setTimeout(() => {
+            notification.classList.remove("translate-y-10", "opacity-0");
+          }, 10);
+
+          // 3秒后隐藏通知
+          setTimeout(() => {
+            notification.classList.add("translate-y-10", "opacity-0");
+            setTimeout(() => {
+              document.body.removeChild(notification);
+            }, 300);
+          }, 3000);
+        }
+      });
+    </script>
+  </body>
+</html>
