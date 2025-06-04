@@ -34,22 +34,31 @@ npm install koa @koa/router koa-static koa-body koa-session2 sqlite3
 
 project/
 ├─ uploads/ # 上传文件存储目录
+
 ├─ public/ # 静态文件目录
+
 ├─ files.db # SQLite 数据库文件
+
 ├─ server.js # 服务器主文件
+
 └─ README.md # 项目说明文件
 
 ## API 文档
 
 文件相关 API
 GET /api/files - 获取文件列表
+
 POST /api/upload - 上传文件（需要登录）
+
 DELETE /api/delete/:filename - 删除文件（需要登录）
+
 
 ## 用户认证 API
 
 POST /api/login - 用户登录
+
 POST /api/logout - 用户登出
+
 GET /api/login/status - 检查登录状态
 
 ## 默认用户
@@ -62,8 +71,11 @@ GET /api/login/status - 检查登录状态
 服务器配置位于 server.js 文件顶部，可修改以下参数：
 
 UPLOADS_DIR: 上传文件存储目录（默认为 ./uploads）
+
 PUBLIC_DIR: 静态文件目录（默认为 ./public）
+
 sessionConfig: 会话配置选项
+
 服务器端口（默认为 3000）
 
 ## 注意事项
