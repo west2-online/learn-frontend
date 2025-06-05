@@ -27,7 +27,7 @@ npm install axios cheerio sequelize p-queue sqlit
    
    const START_DATE = new Date("2025-01-01"); // 爬取起始日期（仅保留该日期之后的通知）
    
-   const MAX_PAGES = 30(30 是符合所要求网址 2025 和 2024 年份的交界点后的一段，当前时间为 2025 年 6 月 6 日时间点，可自行增大 pages); // 最大爬取页数，防止无限循环
+   const MAX_PAGES = 30(30 是符合所要求网址 2025 和 2024 年份的交界点后的一段，当前时间为 2025 年 6 月 5 日时间点，可自行增大 pages); // 最大爬取页数，防止无限循环
    
 3. 启动爬虫
    bash
