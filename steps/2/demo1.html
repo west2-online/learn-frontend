@@ -1,57 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>阿笠博士的新发明</title>
 
     <style>
-      body {
-        padding-left: 10vw;
-      }
-      .question {
-        margin-top: 30px;
-        font-size: 22px;
-      }
-
-      .box {
-        margin-top: 64px;
-        width: 60%;
-        height: 200px;
-        font-size: 24px;
-        display: flex;
-        justify-content: space-between;
-      }
-      #blue {
-        width: 46%;
-        text-align: center;
-        line-height: 200px;
-        border: 2px solid #21a4f1;
-      }
-      #red {
-        width: 46%;
-        text-align: center;
-        line-height: 200px;
-        border: 2px solid #fc4b5a;
-      }
+        body {
+            padding-left: 10vw;
+        }
+        
+        .question {
+            margin-top: 30px;
+            font-size: 22px;
+        }
+        
+        .box {
+            margin-top: 64px;
+            width: 60%;
+            height: 200px;
+            font-size: 24px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        #blue {
+            width: 46%;
+            text-align: center;
+            line-height: 200px;
+            border: 2px solid #21a4f1;
+        }
+        
+        #red {
+            width: 46%;
+            text-align: center;
+            line-height: 200px;
+            border: 2px solid #fc4b5a;
+        }
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="question">
-      <p>柯南的手表坏了，最近阿笠博士刚好设计了一款新型时钟（下方蓝框）。</p>
-      <p>
-        蓝框显示当前日期，当鼠标移入蓝框时，有放大效果且时间暂停；鼠标移出后时间继续更新。
-      </p>
-      <p>点击定格按钮，红框内显示定格的时间。</p>
+        <p>柯南的手表坏了，最近阿笠博士刚好设计了一款新型时钟（下方蓝框）。</p>
+        <p>
+            蓝框显示当前日期，当鼠标移入蓝框时，有放大效果且时间暂停；鼠标移出后时间继续更新。
+        </p>
+        <p>点击定格按钮，红框内显示定格的时间。</p>
     </div>
     <div class="box">
-      <div id="blue">
-        <span id="time"></span>
-      </div>
-      <div id="red">
-        <span id="pauseTime"></span>
-      </div>
+        <div id="blue">
+            <span id="time"></span>
+        </div>
+        <div id="red">
+            <span id="pauseTime"></span>
+        </div>
     </div>
     <button id="btn" style="font-size: 24px; margin-top: 48px">定格</button>
 
@@ -64,6 +68,54 @@
         3. 鼠标移出 #blue 的时候 继续时间的更新，CSS 样式还原。
         4. 点击定格按钮，#red 里面显示点击时候的时间。
     -->
-    <script></script>
-  </body>
+    <script>
+        // 获取相关元素
+        const blueBox = document.getElementById('blue');
+        const redBox = document.getElementById('red');
+        const timeSpan = document.getElementById('time');
+        const pauseTimeSpan = document.getElementById('pauseTime');
+        const btn = document.getElementById('btn');
+
+        // 用于存储当前时间的变量
+        let currentTime;
+        let timer;
+
+        // 函数用于更新时间并显示在蓝框内，精确到日期和时间
+        function updateTime() {
+            const now = new Date();
+            currentTime = now.toLocaleString();
+            timeSpan.textContent = currentTime;
+        }
+
+        // 初始调用一次更新时间函数，显示当前时间
+        updateTime();
+
+        // 设置定时器，每秒更新一次时间
+        timer = setInterval(updateTime, 1000);
+
+        // 鼠标移入蓝框事件处理函数
+        blueBox.addEventListener('mouseover', function() {
+            // 清除定时器，暂停时间更新
+            clearInterval(timer);
+
+            // 放大边框效果，这里简单通过增加边框宽度实现，可根据需求调整样式
+            blueBox.style.borderWidth = '4px';
+        });
+
+        // 鼠标移出蓝框事件处理函数
+        blueBox.addEventListener('mouseout', function() {
+            // 重新设置定时器，继续时间更新
+            timer = setInterval(updateTime, 1000);
+
+            // 还原边框样式
+            blueBox.style.borderWidth = '2px';
+        });
+
+        // 点击定格按钮事件处理函数
+        btn.addEventListener('click', function() {
+            pauseTimeSpan.textContent = currentTime;
+        });
+    </script>
+</body>
+
 </html>

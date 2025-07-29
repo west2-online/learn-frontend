@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>海绵宝宝-张伟林</title>
+        <style>
+            body{
+                background-color: #dcf3ff;
+            }
+            /* 第一部分 */
+            .nav{
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                height: 50px;
+                /* background-color: #333; */
+                
+                font-size: 20px;
+            }
+            .nav-title{
+                float: left;
+                width: 10%;
+                line-height: 1.75em;
+                text-align: center;
+                cursor: pointer;
+            }
+            .nav-title:hover{
+                background-color: #6495ED;
+                border-radius: 20px;
+                transform: scale(1.1);
+            }
+            
+
+            
+            /* 第二部分 */
+            .firsttext{
+                border:#BAD6EE 3px solid;
+                border-radius: 20px;
+                /* background-color: #5c6cf9; */
+                margin-top: 20px;
+                margin-bottom: 20px;
+                width: 80%;
+                height: 180px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                
+            }
+            .firstall{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height:200px;
+            }
+            .content{
+                font-size: 20px;
+            
+            }
+            /* 第三部分 */
+            .secondblock{
+                height: 400px;
+                /* background-color: #714ec9; */
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+            }
+            .hm{
+                width: 200px;
+                height: 350px;
+                /* background-color: #f0e24e; */
+                .hmtext{
+                    
+                    height: 150px;
+                    color: white;
+                    margin-bottom: 30px;
+                    text-align: center;
+                    background-color: #face3a;
+                    border-radius: 10px;}
+            }
+            .pdx{
+                width: 200px;
+                height: 350px;
+                /* background-color: #f69f48; */
+                .pdxtext{
+                    
+                    height: 150px;
+                    margin-bottom:30px ;
+                    color: white;
+                    text-align: center;
+                    background-color: #cf8117;
+                    border-radius: 10px;}
+            }
+            .zyg{
+                width: 200px;
+                height: 350px;
+                /* background-color: #5c6cf9; */
+                .zygtext{
+                    
+                    height: 150px;
+                    color: white;
+                    margin-bottom: 30px;
+                    text-align: center;
+                    background-color: #37669c;
+                    border-radius: 10px;}
+            }
+            .img:hover{
+                transform: scale(1.1);
+                cursor: pointer;
+            }
+            /* 第四部分 */
+            .table{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 50px;
+            }
+            .table1{
+                border-collapse: collapse;}
+            .table tbody{
+                text-align: center;
+            }
+            .line1{
+                background-color: #99CCFF;
+            }
+            .line2{
+                background-color: #87CEEB;
+            }
+            .line3{
+                background-color: #6699CC;
+            }
+            .table tr:first-child .line1 {
+                border-top-left-radius: 8px;
+            }
+            .table tr:first-child .line3 {
+                border-top-right-radius: 8px;
+            }
+            .table tr:nth-child(4) .line1 {
+                border-bottom-left-radius: 8px;
+            }   
+            .table tr:nth-child(4) .line3 {
+                border-bottom-right-radius: 8px;
+            }
+            /*第五部分*/
+            .suggest{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-top: 50px;
+                height: 400px;
+                
+                font-size: 20px;
+                .suggesttext{
+                    background-color: #dcf3ff;
+                    width: 1200px;
+                    height: 300px;
+                    border-radius: 10px;
+                    border: 1px solid #B2E1F6;}
+            }
+            .submit{
+                display: flex;
+                justify-content:right;
+                align-items: right;
+                
+                height: 400px;
+                width: 1150px;
+                .submitbutton{
+                    background-color:#6495ED;
+                    color: white;
+                    border: none;
+                    width: 150px;
+                    height: 70px;
+                    border-radius: 10px;}
+                    }
+            .suggestall{
+                /* background-color: #face3a; */
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                transition: 0.5s; 
+            }
+            .suggesttext:hover{
+                background-color: #B2E1F6;
+            }
+            .submitbutton{
+                transition: 0.5s;
+            }
+            .submitbutton:hover{
+                background-color: #37669c;
+                cursor: pointer;
+            }
+            
+        </style>
+
+    </head>
+
+    <body>
+        
+       <!-- 第一部分 -->
+        <div class="nav">
+            <span class="nav-title"><a href="#A">人物介绍</a></span>
+            <span class ="nav-title"><a href="#B">作品系列</a></span>
+            <span  class="nav-title"><a href="#C">我们相关</a></span>
+        </div>
+        <!-- 第二部分 -->
+         <div class="firstall" id="A">
+            <div class="firsttext">
+                <img  src="all.jpeg "alt="all" style="border-radius: 100px;width: 200px;height: 150px; margin: 20px;">
+                
+                <br><span class="content" >海绵宝宝是一只黄色的方形海绵，住在太平洋深处风光优美无人知晓的比基尼海滩水域下。哪里是一个没有忧虑的世界，住着一群快乐的海洋生物。</span>
+                
+            </div>
+        </div>
+        <!-- 第三部分 -->
+        <div class="secondblock" id="A">
+            <div class="hm">
+                <div class="hmtext">
+                    <h2 >海绵宝宝</h2>
+                    <p>是动画片《海绵宝宝》系列中的主角，超级活泼可爱，给人带来快乐。</p>
+                </div>
+            
+                <img ; src="haimianbaobao.jpeg" alt="hm" class="img" style="width: 200px;height: 200px;border-radius: 10px;">
+            </div>
+            <div class="pdx">
+                <div class="pdxtext">
+                    <h2>派大星</h2>
+                    <p>粉红色的海星，很可爱，和海绵宝宝交情最好。</p>
+                </div>
+                <img src="paidaxing.jpeg" alt="pdx" class="img" style="width: 200px;height: 200px; border-radius: 10px;">
+
+            </div>
+           <div class="zyg">
+                <div class="zygtext">
+                    <h2>章鱼哥</h2>
+                    <p>大鼻子章鱼，对艺术有执着的追求，本质上是一个善良且有正义感的章鱼。</p>
+                </div>                    
+                <img margin: 100px; src="zhangyuge.jpeg" alt="zyg" class="img" style="width: 200px;height: 200px;border-radius: 10px;">
+            </div> 
+        </div>
+        <!-- 第四部分 -->
+         <div class="table" id="B">
+            <table  width="80%" class="table1">
+                <thead>
+                        <th width="50%">系列</th>
+                        <th width="30%">日期</th>
+                        <th witdh="20%">集数</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="line1">海绵宝宝</td>
+                        <td class="line2">2008年10月23日</td>
+                        <td class="line3">60集</td>
+                    </tr>
+                    <tr>
+                        <td class="line1">海绵宝宝</td>
+                        <td class="line2">2008年10月23日</td>
+                        <td class="line3">60集</td>
+                    </tr>
+                    <tr>
+                        <td class="line1">海绵宝宝</td>
+                        <td class="line2">2008年10月23日</td>
+                        <td class="line3">60集</td>
+                    </tr>
+                    <tr>
+                        <td class="line1">海绵宝宝</td>
+                        <td class="line2">2008年10月23日</td>
+                        <td class="line3">60集</td>
+                    </tr>
+                    <!-- <td bgcolor="#99CCFF" style="font-weight: 100;">海绵宝宝<br>海绵宝宝<br>海绵宝宝<br>海绵宝宝</td>
+                    <td bgcolor="#87CEEB" style="font-weight: 100;">2008年10月23日<br>2008年10月23日<br>2008年10月23日<br>2008年10月23日</td>
+                    <td bgcolor="#6699CC" style="font-weight: 100;">60集<br>60集<br>60集<br>60集</td> -->
+                </tbody>
+
+            </table>
+         </div>
+         <!-- 第五部分 -->
+        <div class="suggestall" id="C">
+            <form action="#">
+                <div class="suggestall">
+                    <div class="suggest">
+                        <textarea placeholder="对我们的建议" class="suggesttext"></textarea>
+                    </div>
+                    <div class="submit">
+                        <input type="submit" value="提交" class="submitbutton">
+                    </div>
+                </div>        
+            </form>
+        </div>
+    </body>
+</html>
+<head>
