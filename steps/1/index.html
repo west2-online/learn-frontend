@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- 
+      ═══════════════════════════════════════════════════════════
+      这里存放了网站标题、favicon、SEO 等知识点
+      你可以选择性修改，或直接删除整段并重写你想要的
+      ═══════════════════════════════════════════════════════════
+    -->
+    <title>my-blog</title>
+    <link rel="stylesheet" href="main.css" />
+</head>
+<body>
+
+    <!-- ========================================================== -->
+    <!-- 导航栏                                                -->
+    <!-- ═════════════════════════════════════════════════════════════════ -->
+    <!-- 你可以选择：1.删除整个 <nav> 并重写成你想要的样子  2.在该模板基础上做修改 -->
+    <!-- 保留 id="navbar" 和 id="navMenu" 即可让 JS 正常工作      -->
+    <!-- ========================================================== -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">我的博客</a>
+            <ul class="nav-menu" id="navMenu">
+                <!-- 你可以增删菜单项 -->
+                <li><a href="#" class="active">首页</a></li>
+                <li><a href="#">文章</a></li>
+                <li><a href="#">关于</a></li>
+                <li><a href="#">联系</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" title="切换主题">🌙</button>
+                <button class="menu-toggle" id="menuToggle" aria-label="菜单">☰</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ========================================================== -->
+    <!-- 博客主要内容                                              -->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!-- 你可以选择：1.你可以删除整个 <main> 并重写成你想要的布局结构  2.在该模板基础上做修改-->
+    <!-- 保留 id 选择器即可让 JS 正常工作                         -->
+    <!-- ========================================================== -->
+    <main class="container main-grid">
+
+        <!-- ===== 文章列表 ===== -->
+        <section class="articles-section">
+            <div class="section-header">
+                <h2>最新文章</h2>
+                <div class="search-box">
+                    <!-- 必须保留 id="searchInput" -->
+                    <input type="text" id="searchInput" placeholder="搜索文章..." />
+                </div>
+            </div>
+
+            <!-- 分类筛选 — 必须保留 id="categoryFilters" -->
+            <div class="category-filters" id="categoryFilters">
+                <!-- 由 JS 动态生成，你也可以删掉自己写 -->
+            </div>
+
+            <!-- 文章列表 — 必须保留 id="articlesGrid" -->
+            <div class="articles-grid" id="articlesGrid">
+                <!-- 由 JS 渲染 -->
+            </div>
+        </section>
+
+        <!-- ===== 侧边栏 ===== -->
+        <aside class="sidebar">
+
+            <!-- ========================================================== -->
+            <!-- 你可以删掉整个侧边栏重写，或删掉部分卡片              -->
+            <!-- ========================================================== -->
+
+            <!-- 个人简介 — 可删 -->
+            <div class="sidebar-card profile-card">
+                <!-- 这是你的帅脸，你可以试试插点好看的图进去 -->
+                <div class="profile-avatar">🧑‍💻</div>
+                <h3>你</h3>
+                <p class="profile-bio">一句话介绍</p>
+                <div class="profile-social">
+                    <a href="#">GitHub</a>
+                    <a href="#">掘金</a>
+                    <a href="#">知乎</a>
+                </div>
+            </div>
+
+            <!-- (选做) 标签云 — 完成该功能需保留 id="tagCloud" -->
+            <div class="sidebar-card">
+                <h4>分类标签</h4>
+                <div class="tag-cloud" id="tagCloud">
+                    <!-- 由 JS 渲染 -->
+                </div>
+            </div>
+
+            <!-- (选做) 近期文章 — 完成该功能需保留 id="recentList" -->
+            <div class="sidebar-card">
+                <h4>近期文章</h4>
+                <ul class="recent-list" id="recentList">
+                    <!-- 由 JS 渲染 -->
+                </ul>
+            </div>
+
+            <!-- (选做) 统计 — 完成该功能需保留 id="totalArticles" "totalCategories" -->
+            <div class="sidebar-card">
+                <h4>统计</h4>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalArticles">0</span>
+                        <span class="stat-label">文章</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number" id="totalCategories">0</span>
+                        <span class="stat-label">分类</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- (选做) ⭐ 收藏列表 — 完成该功能需保留 id="favoriteList" -->
+            <div class="sidebar-card">
+                <h4>⭐ 我的收藏</h4>
+                <ul class="recent-list" id="favoriteList">
+                    <!-- 由 JS 渲染 -->
+                </ul>
+                <p style="font-size:0.8rem;color:var(--text-muted);margin-top:8px;">
+                    点击文章旁的 ☆ 收藏
+                </p>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- ========================================================== -->
+    <!-- 页脚                                                     -->
+    <!-- ========================================================== -->
+    <!-- 你可以删掉整个 <footer> 重写，或者在此基础上修改                         -->
+    <!-- ========================================================== -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <p>© 2026 my-blog</p>
+            <p class="footer-tech">HTML · CSS · JavaScript</p>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
