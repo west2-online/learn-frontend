@@ -1,0 +1,369 @@
+/* ================================================================
+   CSS 变量 (参考配色，可自行替换)
+   ═══════════════════════════════════════════════════════════════════
+   浅色模式参考：
+     --primary: #3b82f6;
+  --bg-body: #f1f5f9;
+  --bg-card: #ffffff;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --border-color: #e2e8f0;
+  --shadow: 0 4px 12px rgba(0,0,0,0.06);
+
+   深色模式参考：
+   --bg-body: #0f172a;
+   --bg-card: #1e293b;
+   --bg-nav: rgba(15, 23, 42, 0.9);
+   --bg-filter: #334155;
+   --text-primary: #f1f5f9;
+   --text-secondary: #cbd5e1;
+   --text-muted: #64748b;
+   --border-color: #334155;
+   --shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+   --shadow-hover: 0 12px 30px rgba(0, 0, 0, 0.5);
+   ================================================================ */
+:root {
+    /* 请开始你的表演 */
+}
+
+body.dark {
+    /* show time! */
+}
+
+/* ================================================================
+   重置
+   ================================================================ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: var(--bg-body);
+    color: var(--text-primary);
+    line-height: 1.6;
+    transition: background var(--transition), color var(--transition);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ================================================================
+   导航 (请自行设计)
+   ================================================================ */
+.navbar {
+    /* 样式由你定义 */
+    /* 参考：position: sticky; top: 0; z-index: 100; */
+    /* 参考：background: var(--bg-nav); backdrop-filter: blur(12px); */
+}
+
+.nav-container {
+    /* 样式由你定义 */
+    /* 参考：display: flex; justify-content: space-between; align-items: center; */
+}
+
+.logo {
+    /* 样式由你定义 */
+    /* 参考：font-size: 1.4rem; font-weight: 700; color: var(--text-primary); */
+}
+.logo:hover {
+    /* 样式由你定义 */
+    /* 参考：color: var(--primary); */
+}
+
+.nav-menu {
+    /* 样式由你定义 */
+    /* 参考：display: flex; list-style: none; gap: 28px; align-items: center; */
+}
+.nav-menu a {
+    /* 样式由你定义 */
+    /* 参考：color: var(--text-secondary); font-weight: 500; */
+}
+.nav-menu a:hover,
+.nav-menu a.active {
+    /* 样式由你定义 */
+    /* 参考：color: var(--primary); border-bottom: 2px solid var(--primary); */
+}
+
+.nav-actions {
+    /* 样式由你定义 */
+    /* 参考：display: flex; align-items: center; gap: 10px; */
+}
+
+.theme-toggle,
+.menu-toggle {
+    /* 样式由你定义 */
+    /* 参考：background: var(--bg-filter); border: 1px solid var(--border-color); */
+    /* 参考：border-radius: 50%; width: 40px; height: 40px; cursor: pointer; */
+}
+.theme-toggle:hover,
+.menu-toggle:hover {
+    /* 样式由你定义 */
+    /* 参考：transform: scale(1.05); */
+}
+
+.menu-toggle {
+    /* 样式由你定义 */
+    /* 参考：display: none; */
+}
+
+/* ================================================================
+   主布局 (请自行设计)
+   ================================================================ */
+.main-grid {
+    /* 样式由你定义 */
+    /* 参考：display: grid; grid-template-columns: 2fr 1fr; gap: 32px; */
+    /* 参考：padding: 32px 0 48px; */
+}
+
+/* ================================================================
+   文章区域 (请自行设计)
+   ================================================================ */
+.section-header {
+    /* 样式由你定义 */
+    /* 参考：display: flex; justify-content: space-between; align-items: center; */
+    /* 参考：flex-wrap: wrap; gap: 12px; margin-bottom: 16px; */
+}
+.section-header h2 {
+    /* 样式由你定义 */
+    /* 参考：font-size: 1.5rem; */
+}
+
+.search-box {
+    /* 样式由你定义 */
+    /* 参考：flex: 1; min-width: 180px; max-width: 300px; */
+}
+.search-box input {
+    /* 样式由你定义 */
+    /* 参考：width: 100%; padding: 8px 18px; border: 1px solid var(--border-color); */
+    /* 参考：border-radius: var(--radius-full); background: var(--bg-input); */
+}
+.search-box input:focus {
+    /* 样式由你定义 */
+    /* 参考：border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15); */
+}
+
+.category-filters {
+    /* 样式由你定义 */
+    /* 参考：display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; */
+}
+
+.filter-btn {
+    /* 样式由你定义 */
+    /* 参考：padding: 6px 20px; border: 1px solid var(--border-color); */
+    /* 参考：border-radius: var(--radius-full); background: var(--bg-filter); */
+}
+.filter-btn:hover {
+    /* 样式由你定义 */
+    /* 参考：transform: translateY(-2px); box-shadow: var(--shadow); */
+}
+.filter-btn.active {
+    /* 样式由你定义 */
+    /* 参考：background: var(--primary); color: #fff; border-color: var(--primary); */
+}
+
+.articles-grid {
+    /* 样式由你定义 */
+    /* 参考：display: flex; flex-direction: column; gap: 20px; */
+}
+
+.article-card {
+    /* 样式由你定义 */
+    /* 参考：background: var(--bg-card); border-radius: var(--radius); padding: 24px 28px; */
+    /* 参考：border: 1px solid var(--border-color); box-shadow: var(--shadow); */
+}
+.article-card:hover {
+    /* 样式由你定义 */
+    /* 参考：transform: translateY(-4px); box-shadow: var(--shadow-hover); */
+    /* 参考：border-color: var(--primary); */
+}
+
+.article-meta {
+    /* 样式由你定义 */
+    /* 参考：display: flex; gap: 16px; font-size: 0.85rem; color: var(--text-muted); */
+}
+.article-category {
+    /* 样式由你定义 */
+    /* 参考：background: var(--bg-filter); padding: 0 14px; border-radius: var(--radius-full); */
+}
+
+.article-card h3 {
+    /* 样式由你定义 */
+    /* 参考：font-size: 1.3rem; margin-bottom: 6px; color: var(--text-primary); */
+}
+.article-card p {
+    /* 样式由你定义 */
+    /* 参考：color: var(--text-secondary); margin-bottom: 14px; */
+}
+
+.article-footer {
+    /* 样式由你定义 */
+    /* 参考：display: flex; justify-content: space-between; align-items: center; */
+    /* 参考：border-top: 1px solid var(--border-color); padding-top: 14px; */
+}
+
+.fav-btn {
+    /* 样式由你定义 */
+    /* 参考：background: none; border: none; cursor: pointer; font-size: 1.2rem; */
+}
+.fav-btn:hover {
+    /* 样式由你定义 */
+    /* 参考：transform: scale(1.2); */
+}
+.fav-btn.favorited {
+    /* 样式由你定义 */
+    /* 参考：color: #f59e0b; */
+}
+
+.empty-state {
+    /* 样式由你定义 */
+    /* 参考：text-align: center; padding: 48px 20px; color: var(--text-muted); */
+    /* 参考：background: var(--bg-card); border: 2px dashed var(--border-color); */
+}
+
+/* ================================================================
+   侧边栏 (请自行设计)
+   ================================================================ */
+.sidebar {
+    /* 样式由你定义 */
+    /* 参考：display: flex; flex-direction: column; gap: 24px; */
+}
+
+.sidebar-card {
+    /* 样式由你定义 */
+    /* 参考：background: var(--bg-card); border-radius: var(--radius); padding: 20px 24px; */
+    /* 参考：border: 1px solid var(--border-color); box-shadow: var(--shadow); */
+}
+.sidebar-card:hover {
+    /* 样式由你定义 */
+    /* 参考：box-shadow: var(--shadow-hover); */
+}
+.sidebar-card h4 {
+    /* 样式由你定义 */
+    /* 参考：font-size: 1.1rem; margin-bottom: 12px; border-bottom: 1px solid var(--border-color); */
+    /* 参考：padding-bottom: 10px; */
+}
+
+.profile-card {
+    /* 样式由你定义 */
+    /* 参考：text-align: center; */
+}
+.profile-avatar {
+    /* 样式由你定义 */
+    /* 参考：font-size: 3.6rem; margin-bottom: 4px; */
+}
+.profile-card h3 {
+    /* 样式由你定义 */
+    /* 参考：font-size: 1.3rem; */
+}
+.profile-bio {
+    /* 样式由你定义 */
+    /* 参考：color: var(--text-secondary); margin-bottom: 10px; */
+}
+.profile-social {
+    /* 样式由你定义 */
+    /* 参考：display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; */
+}
+
+.tag-cloud {
+    /* 样式由你定义 */
+    /* 参考：display: flex; flex-wrap: wrap; gap: 8px; */
+}
+.tag {
+    /* 样式由你定义 */
+    /* 参考：background: var(--bg-filter); padding: 4px 14px; border-radius: var(--radius-full); */
+    /* 参考：font-size: 0.85rem; color: var(--text-secondary); border: 1px solid var(--border-color); */
+}
+.tag:hover {
+    /* 样式由你定义 */
+    /* 参考：background: var(--primary); color: #fff; border-color: var(--primary); */
+}
+
+.recent-list {
+    /* 样式由你定义 */
+    /* 参考：list-style: none; */
+}
+.recent-list li {
+    /* 样式由你定义 */
+    /* 参考：padding: 8px 0; border-bottom: 1px solid var(--border-color); */
+    /* 参考：display: flex; justify-content: space-between; align-items: center; */
+}
+.recent-list li:last-child {
+    /* 样式由你定义 */
+    /* 参考：border-bottom: none; */
+}
+.recent-list a {
+    /* 样式由你定义 */
+    /* 参考：color: var(--text-primary); */
+}
+.recent-list a:hover {
+    /* 样式由你定义 */
+    /* 参考：color: var(--primary); */
+}
+.recent-date {
+    /* 样式由你定义 */
+    /* 参考：font-size: 0.8rem; color: var(--text-muted); */
+}
+
+.stats-grid {
+    /* 样式由你定义 */
+    /* 参考：display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; */
+    /* 参考：text-align: center; */
+}
+.stat-item {
+    /* 样式由你定义 */
+    /* 参考：background: var(--bg-filter); border-radius: var(--radius-sm); padding: 10px 6px; */
+    /* 参考：border: 1px solid var(--border-color); */
+}
+.stat-number {
+    /* 样式由你定义 */
+    /* 参考：display: block; font-size: 1.6rem; font-weight: 700; color: var(--primary); */
+}
+.stat-label {
+    /* 样式由你定义 */
+    /* 参考：font-size: 0.8rem; color: var(--text-muted); */
+}
+
+/* ================================================================
+   页脚 (请自行设计)
+   ================================================================ */
+.footer {
+    /* 样式由你定义 */
+    /* 参考：background: var(--bg-card); border-top: 1px solid var(--border-color); */
+    /* 参考：padding: 24px 0; text-align: center; color: var(--text-secondary); */
+}
+.footer-content p {
+    /* 样式由你定义 */
+    /* 参考：margin-bottom: 4px; */
+}
+.footer-tech {
+    /* 样式由你定义 */
+    /* 参考：font-size: 0.85rem; color: var(--text-muted); */
+}
+
+/* ================================================================
+   响应式 (请自行设计断点)
+   ================================================================ */
+@media (max-width: 1024px) {
+    /* 样式由你定义 */
+    /* 参考：.main-grid { grid-template-columns: 1fr; } */
+}
+
+@media (max-width: 768px) {
+    /* 样式由你定义 */
+    /* 参考：.nav-menu { display: none; flex-direction: column; width: 100%; } */
+    /* 参考：.nav-menu.open { display: flex; } */
+    /* 参考：.menu-toggle { display: flex; } */
+}
+
+@media (max-width: 480px) {
+    /* 样式由你定义 */
+    /* 参考：.container { padding: 0 14px; } */
+    /* 参考：.article-footer { flex-direction: column; align-items: flex-start; gap: 10px; } */
+}
