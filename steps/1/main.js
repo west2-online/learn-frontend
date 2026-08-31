@@ -78,7 +78,7 @@ const totalArticlesEl = document.getElementById("totalArticles");
 const totalCategoriesEl = document.getElementById("totalCategories");
 
 // ================================================================
-//  TODO 6: 实现 getFilteredArticles 函数
+// (选做) TODO 6: 实现 getFilteredArticles 函数
 //  根据 currentCategory 和 searchQuery 筛选文章
 // ================================================================
 function getFilteredArticles() {
@@ -86,11 +86,11 @@ function getFilteredArticles() {
 }
 
 // ================================================================
-//  TODO 7: 实现 renderArticles 函数
+// TODO 7: 实现 renderArticles 函数
 //  渲染文章列表，每篇文章显示：
 //  - 分类、日期
 //  - 标题、摘要
-//  - 收藏按钮 (☆/⭐)
+//  - (选做) 收藏按钮 (☆/⭐)
 // ================================================================
 function renderArticles() {
   // 补全代码
@@ -129,7 +129,7 @@ function renderStats() {
 }
 
 // ================================================================
-//  TODO 12: 实现 updateFilterButtons 函数
+// (选做) TODO 12: 实现 updateFilterButtons 函数
 //  高亮当前选中的分类按钮
 // ================================================================
 function updateFilterButtons() {
