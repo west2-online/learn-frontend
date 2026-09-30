@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>demo3-1</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-size: 16px;
+      }
+
+      body {
+        margin: 0;
+      }
+    </style>
+  </head>
+
+  <!-- 不能改动 HTML 结构 -->
+  <body>
+    <div class="header">Header</div>
+    <div class="content">
+      <div class="card card1">small (&geq; 640px)</div>
+      <div class="card card2">medium (&geq; 768px)</div>
+      <div class="card card3">large (&geq; 1024px)</div>
+      <div class="card card4">xlarge (&geq; 1280px)</div>
+      <div class="card card5">2xl (&geq; 1536px)</div>
+      <div>
+        <p>作业要求：</p>
+        <ol>
+          <li>
+            为 content 设置合理的 padding，使其可显示范围恰好为屏幕上除 header
+            外的所有区域（即使页面的显示区域刚好覆盖整个屏幕但是不出现滚动条），并将背景颜色设置为
+            #f0f8ff。
+          </li>
+          <li>
+            利用 CSS Media Query 为下面的 card1、card2、card3、card4、card5
+            设置合适的 display 属性，使其在不同屏幕尺寸下显示。
+          </li>
+          <li>
+            将本列表的第二个条目设置为红色，但不使用 class 和 id
+            选择器（即基于现有的 HTML 结构编写选择器）。
+          </li>
+          <li>
+            将本列表中的所有奇数条目设置为粗体，但不使用 class 和 id
+            选择器（即基于现有的 HTML 结构编写选择器）。
+          </li>
+        </ol>
+      </div>
+    </div>
+  </body>
+
+  <style>
+    .header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      padding: 10px 15px;
+      background-color: #ccc;
+    }
+
+    .card {
+      display: none;
+      width: 200px;
+      height: 50px;
+      border: 1px solid #ccc;
+    }
+
+    /* 以上代码请勿修改 */
+    /* 请在下方完成你的代码 */
+  </style>
+</html>
